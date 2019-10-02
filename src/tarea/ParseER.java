@@ -19,16 +19,15 @@ public class ParseER {
     } 
     
     public void parsear(){
-        for (int i = 0; i < er.size(); i++) {
-            
-          /*switch(er.get(i)){
+        for (int i = 0; i < er.size(); i++) {  
+          switch(er.get(i)){
                 case "|":
                     return;
                 case ".":
                     return;
                 case "*":
                     return;
-            }*/
+            }
         }
     }
 }

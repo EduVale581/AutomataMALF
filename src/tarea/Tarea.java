@@ -40,6 +40,8 @@ public class Tarea {
                 break;
             }           
         }
+        ParseER parse = new ParseER(erSeparada);
+        parse.parsear();
         /*
         for (int i = 0; i < erSeparada.size(); i++) {
             System.out.println(erSeparada.get(i));
