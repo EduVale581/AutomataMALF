@@ -22,5 +22,15 @@ public class Conversion {
         afnd.mostrarAFND();
     }
     
+    public void conversionConcatenacion2 (AutomataNoDeterminista a, AutomataNoDeterminista b){
+        //Estado nuevoEstadoInicioA = a.
+        //Estado nuevoEstadoFinA = new Estado(1);
+        Estado nuevoEstadoInicioB = new Estado(0);
+        Estado nuevoEstadoFinB = new Estado(1);
+        //Transicion nueva = new Transicion(nuevoEstadoInicio, nuevoEstadoFin, valor);
+        //afnd.setTanciciones(nueva);
+        afnd.mostrarAFND();
+    }
+    
     
 }

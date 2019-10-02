@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tarea;
+
 
 import java.util.ArrayList;
 
@@ -27,7 +27,13 @@ public class ParseER {
                     return;
                 case "*":
                     return;
+                
+                    
+                    
             }
+            System.out.println("hhh");
+          Conversion nueva = new Conversion();
+        nueva.conversionConcatenacion(er.get(i).charAt(0));
         }
     }
 }
