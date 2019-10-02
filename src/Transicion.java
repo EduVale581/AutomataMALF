@@ -19,6 +19,11 @@ public class Transicion {
         this.caracter = caracter;
     }
 
+    public Transicion() {
+    }
+    
+    
+
     public Estado getInicio() {
         return inicio;
     }

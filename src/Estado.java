@@ -19,9 +19,10 @@ public class Estado {
 
     public Estado(int identificador) {
         this.identificador = identificador;
+        this.verificacion = false;
     }
     
-    public Estado(int identificador, ArrayList<Transicion> transiciones, boolean verificacion) {
+    public Estado(int identificador, ArrayList<Transicion> transiciones) {
         this.identificador = identificador;
         this.tanciciones = transiciones;
     }

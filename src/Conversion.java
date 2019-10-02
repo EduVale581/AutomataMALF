@@ -9,28 +9,41 @@
  * @author eduardovalenzuela
  */
 public class Conversion {
-    AutomataNoDeterminista afnd = new AutomataNoDeterminista();
 
     public Conversion() {
     }
     
-    public void conversionConcatenacion (char valor){
-        Estado nuevoEstadoInicio = new Estado(0);
-        Estado nuevoEstadoFin = new Estado(1);
+    public AutomataNoDeterminista conversionConcatenacion (char valor, AutomataNoDeterminista a){
+        Estado nuevoEstadoInicio;
+        if (a.getEstados()==null) {
+            nuevoEstadoInicio = new Estado(0);
+        }
+        else{
+            nuevoEstadoInicio = new Estado(a.getEstados().size());
+        }
+        a.addEstados(nuevoEstadoInicio);
+        Estado nuevoEstadoFin = new Estado(a.getEstados().size());
+        a.addEstados(nuevoEstadoFin);
+        nuevoEstadoFin.setVerificacion(true);
         Transicion nueva = new Transicion(nuevoEstadoInicio, nuevoEstadoFin, valor);
-        afnd.setTanciciones(nueva);
-        afnd.mostrarAFND();
+        a.addTanciciones(nueva);
+        //afnd.mostrarAFND();
+        System.out.println(a.getEstados().size());
+        return a;
     }
     
-    public void conversionConcatenacion2 (AutomataNoDeterminista a, AutomataNoDeterminista b){
-        //Estado nuevoEstadoInicioA = a.
-        //Estado nuevoEstadoFinA = new Estado(1);
-        Estado nuevoEstadoInicioB = new Estado(0);
-        Estado nuevoEstadoFinB = new Estado(1);
-        //Transicion nueva = new Transicion(nuevoEstadoInicio, nuevoEstadoFin, valor);
-        //afnd.setTanciciones(nueva);
-        afnd.mostrarAFND();
+    public AutomataNoDeterminista conversionConcatenacion2 (AutomataNoDeterminista a, AutomataNoDeterminista b, AutomataNoDeterminista c){
+        Estado nuevo = null;
+        System.out.println(a.getEstados().size());
+        //System.out.println(b.getEstados().size());
+
+        Transicion nueva = new Transicion(nuevo, b.getInicio(), '_');
+        c.addTanciciones(nueva);
+        c.mostrarAFND();
+        return c;
     }
+    
+
     
     
 }

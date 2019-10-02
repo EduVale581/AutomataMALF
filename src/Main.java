@@ -20,6 +20,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
         ArrayList<String> erSeparada = new ArrayList();
         ArrayList<String> alfabeto = new ArrayList();
         

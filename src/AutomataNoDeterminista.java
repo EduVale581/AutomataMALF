@@ -13,9 +13,9 @@ import java.util.ArrayList;
  */
 public class AutomataNoDeterminista {
     private Estado inicio;
-    private ArrayList<Estado> estadosAceptacion;
-    private ArrayList<Estado> estados;
-    private ArrayList<String> alfabeto;
+    private ArrayList<Estado> estadosAceptacion = new ArrayList<>();
+    private ArrayList<Estado> estados = new ArrayList<>();
+    private ArrayList<String> alfabeto  = new ArrayList<>();
     private ArrayList<Transicion> tanciciones= new ArrayList<>();
 
     public AutomataNoDeterminista(Estado inicio, ArrayList<Estado> estadosAceptacion, ArrayList<Estado> estados, ArrayList<String> alfabeto) {
@@ -64,9 +64,20 @@ public class AutomataNoDeterminista {
         return tanciciones;
     }
 
-    public void setTanciciones(Transicion tanciciones) {
+    public void setTanciciones(ArrayList<Transicion> tanciciones) {
+        this.tanciciones = tanciciones;
+    }
+    
+    
+
+    public void addTanciciones(Transicion tanciciones) {
         this.tanciciones.add(tanciciones);
     }
+    
+    public void addEstados(Estado estado) {
+        this.estados.add(estado);
+    }
+
     
     
     
