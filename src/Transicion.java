@@ -45,7 +45,7 @@ public class Transicion {
     
     @Override
     public String toString(){
-        return "("+inicio + ", " + caracter + ", " + fin + ")"; 
+        return "("+inicio.getIdentificador() + ", " + caracter + ", " + fin.getIdentificador() + ")"; 
         
     }
     

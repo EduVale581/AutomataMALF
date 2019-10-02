@@ -72,12 +72,22 @@ public class AutomataNoDeterminista {
     
     public void mostrarAFND(){
         System.out.println("AFND");
-        System.out.println("K = ");
+        /*System.out.println("K = ");
         for (int i = 0; i < estados.size(); i++) {
             System.out.print(estados.get(i).getIdentificador());
             
         }
         System.out.println();
+        System.out.println("Sigma = ");
+        for (int i = 0; i < alfabeto.size(); i++) {
+            System.out.print(alfabeto.get(i));
+        }
+        System.out.println();*/
+        System.out.println("Delta = ");
+        for (int i = 0; i < tanciciones.size(); i++) {
+            System.out.println(tanciciones.get(i).toString());
+        }
+        
         
     }
     
