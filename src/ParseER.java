@@ -15,27 +15,32 @@ public class ParseER {
     AutomataNoDeterminista afnd = new AutomataNoDeterminista();
     ArrayList <String> er = new ArrayList();
     
-    public ParseER (ArrayList<String> er){
+    public ParseER (ArrayList<String> er, ArrayList<String> alfabeto){
         this.er = er;
+        afnd.setAlfabeto(alfabeto);
     } 
     
     public void parsear(){
+        Conversion nueva = new Conversion();
         for (int i = 0; i < er.size(); i++) {  
-          switch(er.get(i)){
+            AutomataNoDeterminista aux; 
+            switch(er.get(i)){
                 case "|":
                     return;
                 case ".":
-                    Conversion nueva = new Conversion();
-                    AutomataNoDeterminista afnd1= nueva.conversionConcatenacion(er.get(i-1).charAt(0), afnd);
-                    AutomataNoDeterminista afnd3= nueva.conversionConcatenacion(er.get(i+1).charAt(0), afnd);
-                    AutomataNoDeterminista afnd4 = nueva.conversionConcatenacion2(afnd1, afnd3, afnd);
-                    return;
+                    if (afnd.getEstados().isEmpty()) {             
+                        afnd = nueva.convertirCaracterPrimera(er.get(i-1).charAt(0), afnd);
+                        aux = nueva.convertirCaracter(er.get(i+1).charAt(0), afnd);
+                        afnd = nueva.concatenar(afnd,aux);
+                    }else{
+                        aux = nueva.convertirCaracter(er.get(i+1).charAt(0), afnd);
+                        afnd = nueva.concatenar(afnd, aux);
+                    }
+                    break;
                 case "*":
-                    return;
-                
-                    
-                    
+                    return;       
             }
         }
+        afnd.mostrarAFND();
     }
 }

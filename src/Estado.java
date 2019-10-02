@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Estado {
     
     private int identificador;
-    private ArrayList<Transicion> tanciciones= new ArrayList<>();
+   // private ArrayList<Transicion> tanciciones= new ArrayList<>();
     private boolean verificacion;
 
     public Estado(int identificador) {
@@ -22,10 +22,6 @@ public class Estado {
         this.verificacion = false;
     }
     
-    public Estado(int identificador, ArrayList<Transicion> transiciones) {
-        this.identificador = identificador;
-        this.tanciciones = transiciones;
-    }
 
     public int getIdentificador() {
         return identificador;
@@ -33,14 +29,6 @@ public class Estado {
 
     public void setIdentificador(int identificador) {
         this.identificador = identificador;
-    }
-
-    public ArrayList<Transicion> getTanciciones() {
-        return tanciciones;
-    }
-
-    public void setTanciciones(ArrayList<Transicion> tanciciones) {
-        this.tanciciones = tanciciones;
     }
 
     public boolean isVerificacion() {

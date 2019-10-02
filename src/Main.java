@@ -21,6 +21,7 @@ public class Main {
      */
     public static void main(String[] args) {
         
+        
         ArrayList<String> erSeparada = new ArrayList();
         ArrayList<String> alfabeto = new ArrayList();
         
@@ -43,19 +44,11 @@ public class Main {
                 break;
             }           
         }
-        ParseER parse = new ParseER(erSeparada);
+        ParseER parse = new ParseER(erSeparada,alfabeto);
         parse.parsear();
-        /*
-        for (int i = 0; i < erSeparada.size(); i++) {
-            System.out.println(erSeparada.get(i));
-        }
-            */
-        System.out.println("El alfabeto es:");
-        for (int i = 0; i < alfabeto.size(); i++) {
-            System.out.println(alfabeto.get(i));
-        }
-        //Conversion nueva = new Conversion();
-        //nueva.conversionConcatenacion('a');
+
+
+
     }
     
 }
