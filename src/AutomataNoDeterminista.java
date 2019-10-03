@@ -132,4 +132,10 @@ public class AutomataNoDeterminista {
         inicio = estados.get(0);
         termino = estados.get(estados.size()-1);
     }
+    
+    public void actualizarIdentificador(){
+        for (int i = 0; i < estados.size(); i++) {
+            estados.get(i).setIdentificador(estados.get(i).getIdentificador()+1);
+        }
+    }
 }

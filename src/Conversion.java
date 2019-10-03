@@ -22,12 +22,9 @@ public class Conversion {
     public AutomataNoDeterminista convertirCaracterPrimera (char valor, AutomataNoDeterminista a){
         
         Estado nuevoEstadoInicio;
-        if (a.getEstados() == null) {
-            nuevoEstadoInicio = new Estado(0);
-        }
-        else{
-            nuevoEstadoInicio = new Estado(a.getEstados().size());
-        }
+        
+        nuevoEstadoInicio = new Estado(0);
+
         
         a.addEstados(nuevoEstadoInicio);
         
@@ -86,5 +83,65 @@ public class Conversion {
 
     }
     
+    public AutomataNoDeterminista disyuncion(AutomataNoDeterminista automataFinal, AutomataNoDeterminista aux){
+        automataFinal.getTermino().setVerificacion(false);
+        aux.getTermino().setVerificacion(false);
+           
+        automataFinal.actualizarIdentificador();
+        Estado nuevoInicio = new Estado(0);
+        automataFinal.getEstados().add(0, nuevoInicio);
+        
+        
+        Estado nuevoFinal = new Estado(automataFinal.getEstados().size());
+        nuevoFinal.setVerificacion(true);
+        automataFinal.addEstados(nuevoFinal);
+        
+        Transicion inicial1= new Transicion(nuevoInicio, automataFinal.getInicio(), '_');
+        Transicion inicial2 = new Transicion(nuevoInicio, aux.getInicio(), '_');
+        
+        Transicion final1 = new Transicion(automataFinal.getTermino(),nuevoFinal,'_');
+        Transicion final2 = new Transicion(aux.getTermino(),nuevoFinal,'_');
+        
+        automataFinal.addTanciciones(inicial1);
+        automataFinal.addTanciciones(inicial2);
+        automataFinal.addTanciciones(final1);
+        automataFinal.addTanciciones(final2);
+        
+        automataFinal.actualizarEstadoFinales();
+        automataFinal.actualizarEstados();
+        
+        return automataFinal;
+    }
+    
+    public AutomataNoDeterminista clausura(AutomataNoDeterminista automataFinal){
+        automataFinal.getTermino().setVerificacion(false);
+        Estado inicioViejo = automataFinal.getInicio();
+        Estado finalViejo = automataFinal.getTermino();
+        
+        
+        automataFinal.actualizarIdentificador();
+        Estado nuevoInicio = new Estado(0);
+        automataFinal.getEstados().add(0, nuevoInicio);
+        
+        Estado nuevoFinal = new Estado(automataFinal.getEstados().size());
+        nuevoFinal.setVerificacion(true);
+        automataFinal.addEstados(nuevoFinal);
+        
+        Transicion inicial = new Transicion(nuevoInicio, inicioViejo, '_');
+        Transicion vuelta = new Transicion(finalViejo,inicioViejo,'_');
+        Transicion termino = new Transicion(finalViejo,nuevoFinal,'_');
+        Transicion termino2 = new Transicion(nuevoInicio,nuevoFinal,'_');
+        
+        automataFinal.addTanciciones(inicial);
+        automataFinal.addTanciciones(termino2);
+        automataFinal.addTanciciones(vuelta);
+        automataFinal.addTanciciones(termino);
+        
+        automataFinal.actualizarEstadoFinales();
+        automataFinal.actualizarEstados();
+        
+        return automataFinal;
+
+    }
     
 }

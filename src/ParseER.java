@@ -26,7 +26,15 @@ public class ParseER {
             AutomataNoDeterminista aux; 
             switch(er.get(i)){
                 case "|":
-                    return;
+                    if (afnd.getEstados().isEmpty()) {             
+                        afnd = nueva.convertirCaracterPrimera(er.get(i-1).charAt(0), afnd);
+                        aux = nueva.convertirCaracter(er.get(i+1).charAt(0), afnd);
+                        afnd = nueva.disyuncion(afnd, aux);
+                    }else{
+                        aux = nueva.convertirCaracter(er.get(i+1).charAt(0), afnd);
+                        afnd = nueva.disyuncion(afnd, aux);
+                    }
+                    break;
                 case ".":
                     if (afnd.getEstados().isEmpty()) {             
                         afnd = nueva.convertirCaracterPrimera(er.get(i-1).charAt(0), afnd);
@@ -38,7 +46,14 @@ public class ParseER {
                     }
                     break;
                 case "*":
-                    return;       
+                    if (afnd.getEstados().isEmpty()) {             
+                        afnd = nueva.convertirCaracterPrimera(er.get(i-1).charAt(0), afnd);
+                        afnd = nueva.clausura(afnd);
+                    }else{
+                   //     nueva.convertirCaracter(er.get(i-1).charAt(0), afnd);
+                        afnd = nueva.clausura(afnd);
+                    }
+                    break;       
             }
         }
         afnd.mostrarAFND();
