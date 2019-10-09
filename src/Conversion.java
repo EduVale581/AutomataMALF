@@ -37,6 +37,7 @@ public class Conversion {
         a.addTanciciones(nueva);
         a.actualizarEstadoFinales();
         a.actualizarEstados();
+
         return a;
         
     }
@@ -46,25 +47,26 @@ public class Conversion {
      * @param a
      * @return 
      */
-    public AutomataNoDeterminista convertirCaracter(char valor, AutomataNoDeterminista a){
+    public AutomataNoDeterminista convertirCaracter(char valor){
         AutomataNoDeterminista nuevo = new AutomataNoDeterminista();
         
         Estado nuevoEstadoInicio;
-        nuevoEstadoInicio = new Estado(a.getEstados().size());
-        a.addEstados(nuevoEstadoInicio);
+        nuevoEstadoInicio = new Estado(0);
+      //  a.addEstados(nuevoEstadoInicio);
         nuevo.addEstados(nuevoEstadoInicio);
         nuevo.setInicio(nuevoEstadoInicio);
         
-        Estado nuevoEstadoFin = new Estado(a.getEstados().size());
+        Estado nuevoEstadoFin = new Estado(1);
         nuevo.addEstados(nuevoEstadoFin);
         nuevoEstadoFin.setVerificacion(true);
         nuevo.setTermino(nuevoEstadoFin);
-        a.addEstados(nuevoEstadoFin);
+       // a.addEstados(nuevoEstadoFin);
         
         Transicion nueva = new Transicion(nuevoEstadoInicio, nuevoEstadoFin, valor);
-        a.addTanciciones(nueva);
+       // a.addTanciciones(nueva);
         nuevo.addTanciciones(nueva);
-        
+        nuevo.actualizarEstadoFinales();
+        nuevo.actualizarEstados();
         return nuevo;
     }
     /**
@@ -74,11 +76,20 @@ public class Conversion {
      * @return 
      */
     public AutomataNoDeterminista concatenar(AutomataNoDeterminista automataFinal, AutomataNoDeterminista aux){
+        aux.getEstados().get(0).setIdentificador(automataFinal.getEstados().size());
+        aux.actualizarIdentificador();
         automataFinal.getTermino().setVerificacion(false);
         Transicion nueva = new Transicion(automataFinal.getTermino(), aux.getInicio(), '_');
+        for (int i = 0; i < aux.getEstados().size(); i++) {
+            automataFinal.addEstados(aux.getEstados().get(i));
+        }
+        for (int i = 0; i < aux.getTanciciones().size(); i++) {
+            automataFinal.addTanciciones(aux.getTanciciones().get(i));
+        }
         automataFinal.addTanciciones(nueva);
         automataFinal.actualizarEstadoFinales();
         automataFinal.actualizarEstados();
+        
         return automataFinal;
 
     }
@@ -86,19 +97,27 @@ public class Conversion {
     public AutomataNoDeterminista disyuncion(AutomataNoDeterminista automataFinal, AutomataNoDeterminista aux){
         automataFinal.getTermino().setVerificacion(false);
         aux.getTermino().setVerificacion(false);
-           
-        automataFinal.actualizarIdentificador();
+        
+        automataFinal.actualizar();
         Estado nuevoInicio = new Estado(0);
         automataFinal.getEstados().add(0, nuevoInicio);
         
+        aux.getEstados().get(0).setIdentificador(automataFinal.getEstados().size());
+        aux.actualizarIdentificador();
+        
+        for (int i = 0; i < aux.getEstados().size(); i++) {
+            automataFinal.addEstados(aux.getEstados().get(i));
+        }
+        for (int i = 0; i < aux.getTanciciones().size(); i++) {
+            automataFinal.addTanciciones(aux.getTanciciones().get(i));
+        }
         
         Estado nuevoFinal = new Estado(automataFinal.getEstados().size());
         nuevoFinal.setVerificacion(true);
         automataFinal.addEstados(nuevoFinal);
         
         Transicion inicial1= new Transicion(nuevoInicio, automataFinal.getInicio(), '_');
-        Transicion inicial2 = new Transicion(nuevoInicio, aux.getInicio(), '_');
-        
+        Transicion inicial2 = new Transicion(nuevoInicio, aux.getInicio(), '_'); 
         Transicion final1 = new Transicion(automataFinal.getTermino(),nuevoFinal,'_');
         Transicion final2 = new Transicion(aux.getTermino(),nuevoFinal,'_');
         
@@ -106,6 +125,7 @@ public class Conversion {
         automataFinal.addTanciciones(inicial2);
         automataFinal.addTanciciones(final1);
         automataFinal.addTanciciones(final2);
+        
         
         automataFinal.actualizarEstadoFinales();
         automataFinal.actualizarEstados();
@@ -117,9 +137,8 @@ public class Conversion {
         automataFinal.getTermino().setVerificacion(false);
         Estado inicioViejo = automataFinal.getInicio();
         Estado finalViejo = automataFinal.getTermino();
-        
-        
-        automataFinal.actualizarIdentificador();
+                
+        automataFinal.actualizar();
         Estado nuevoInicio = new Estado(0);
         automataFinal.getEstados().add(0, nuevoInicio);
         

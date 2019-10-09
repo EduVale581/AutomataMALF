@@ -24,10 +24,10 @@ public class Main {
         ArrayList<String> erSeparada = new ArrayList();
         ArrayList<String> alfabeto = new ArrayList();
         
-        Scanner leer = new Scanner(System.in);
-        String er = leer.nextLine();
+        //Scanner leer = new Scanner(System.in);
+        String er = "a.b|a*";
         
-        /*for (int i = 0; i < er.length(); i++) {
+        for (int i = 0; i < er.length(); i++) {
             char caracter = er.charAt(i);
             int ascii = (int) caracter;
             if ((!alfabeto.contains(Character.toString(caracter))) && ((ascii > 64 && ascii < 91) 
@@ -42,10 +42,11 @@ public class Main {
                 System.out.println("Ingresastes un simbolo nada que ver xd");
                 break;
             }           
-        }*/
-        InfiPost nueva = new InfiPost();
-        String expresion = nueva.Conversion(er);
-        ParseER parse = new ParseER(expresion,alfabeto);
+        }
+       // InfiPost nueva = new InfiPost();
+        //String expresion = nueva.Conversion(er);
+        System.out.println(er);
+        ParseER parse = new ParseER(er,alfabeto);
         parse.parsear();
 
 
