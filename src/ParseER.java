@@ -41,17 +41,19 @@ public class ParseER {
                         afnd = nueva.clausura(afnd);
                         i++;
                     }
-                    else if (cadena.charAt(i+1) == '*'){
-                        afnd = nueva.clausura(afnd);
-                        i++;
-                    }
                     else if (cadena.charAt(i+1) == '*' && afnd.getEstados().isEmpty()) {
                         afnd = nueva.convertirCaracterPrimera(cadena.charAt(i), afnd);
                         afnd = nueva.clausura(afnd);
+                        i++;
                     }
                     else if (cadena.charAt(i+1) == '*'){
+                        
+                        afnd = nueva.convertirCaracter(cadena.charAt(i), afnd);
                         afnd = nueva.clausura(afnd);
                         i++;
+                        i++;
+                        
+                        System.out.println(i);
                     }
                     else if (afnd.getEstados().isEmpty()) {
                         afnd = nueva.convertirCaracterPrimera(cadena.charAt(i), afnd);
@@ -62,7 +64,8 @@ public class ParseER {
                     else{
                         aux = nueva.convertirCaracter(cadena.charAt(i), afnd);
                         i++;
-                    }   break;
+                    }
+                    break;
             }
         }
         /*for (int i = 0; i < er.size(); i++) {  
