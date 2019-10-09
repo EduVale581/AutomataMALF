@@ -60,7 +60,6 @@ public class ParseER {
                         i++;
                     }
                     else{
-                        System.out.println(cadena.charAt(i));
                         aux = nueva.convertirCaracter(cadena.charAt(i), afnd);
                         i++;
                     }   break;
