@@ -61,6 +61,8 @@ public class ParseER {
 
         }
          automatas.get(0).mostrarAFND();
+         convertidor.convertirAFNDaAFD(automatas.get(0));
+         
     }
     
         /*for (int i = 0; i < er.size(); i++) {  
