@@ -25,7 +25,7 @@ public class Main {
         ArrayList<String> alfabeto = new ArrayList();
         
         //Scanner leer = new Scanner(System.in);
-        String er = "a*";
+        String er = "a.b";
         
         for (int i = 0; i < er.length(); i++) {
             char caracter = er.charAt(i);

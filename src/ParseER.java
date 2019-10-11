@@ -61,7 +61,7 @@ public class ParseER {
 
         }
          automatas.get(0).mostrarAFND();
-         convertidor.convertirAFNDaAFD(automatas.get(0));
+         //convertidor.conversion2(automatas.get(0));//convertirAFNDaAFD(automatas.get(0));
          
     }
     
@@ -103,20 +103,20 @@ public class ParseER {
         
         public void transformarER(String er, ArrayList<AutomataNoDeterminista> automatas){
             for (int i = 0; i < er.length(); i++) {
-                try{
-                    if (i ==er.length()) {
-                        break;
-                    }
-                    if (er.charAt(i) != '*' && er.charAt(i) != '|' && er.charAt(i) != '.'
-                            && er.charAt(i+1) != '*') {
-                        automatas.add(convertidor.convertirCaracter(er.charAt(i)));
+                if (i==er.length()-1 && er.charAt(i) != '*') {
+                    automatas.add(convertidor.convertirCaracter(er.charAt(i)));
+                    break;
+                }
+                else if (i==er.length()-1 && er.charAt(i)=='*') {
+                    break;
+                }
+                if (er.charAt(i) != '*' && er.charAt(i) != '|' && er.charAt(i) != '.'
+                        && er.charAt(i+1) != '*') {
+                    automatas.add(convertidor.convertirCaracter(er.charAt(i)));
 
-                    }
-                    if (er.charAt(i+1) == '*'){
-                        automatas.add(convertidor.clausura(convertidor.convertirCaracter(er.charAt(i))));
-                    }
-                }catch(Exception e){
-                    System.out.println("xddddd");
+                }
+                if (er.charAt(i+1) == '*'){
+                    automatas.add(convertidor.clausura(convertidor.convertirCaracter(er.charAt(i))));
                 }
                 
                 

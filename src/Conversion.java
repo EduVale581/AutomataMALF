@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -167,90 +168,75 @@ public class Conversion {
     }
     
     public void convertirAFNDaAFD(AutomataNoDeterminista afnd){
+        ArrayList<ArrayList<Integer>> clausuras = clausurasEpsilon(afnd);
         
-        Estado estadoInicial = afnd.getInicio();
-        Estado estadoFinal = afnd.getTermino();
-        for (int i = 0; i < estadoFinal.getIdentificador(); i++) {
-            Estado aux = buscarEstado(i, afnd);
-            System.out.println(i);
-            epsilon(aux, afnd);
+        
+    }
+    
+    
+    
+    public ArrayList<ArrayList<Integer>> clausurasEpsilon (AutomataNoDeterminista afnd){
+        int valorMatriz = afnd.getFinal().getIdentificador();
+        char [][] posiciones = new char[valorMatriz+1][valorMatriz+1];
+        ArrayList<ArrayList<Integer>> nueva = new ArrayList<>();
+        for (int i = 0; i <= valorMatriz; i++) {
+            for (int j = 0; j <= valorMatriz; j++) {
+                posiciones[i][j] = '0';
+            }
+        }
+        
+        for (int i = 0; i < afnd.getTanciciones().size(); i++) {
+            posiciones[afnd.getTanciciones().get(i).getInicio().getIdentificador()][afnd.getTanciciones().get(i).getFin().getIdentificador()] = afnd.getTanciciones().get(i).getCaracter();
+        }
+        
+        for (int i = 0; i <= valorMatriz; i++) {
+            for (int j = 0; j <= valorMatriz; j++) {
+                System.out.print(posiciones[i][j]);
+            }
+            System.out.println();
+        }
+        System.out.println();
+        
+        for (int i = 0; i <= valorMatriz; i++) {
+            ArrayList<Integer> aux = new ArrayList<>();
+            boolean validacion = false;
+            for (int j = 0; j <= valorMatriz; j++) {
+                if (posiciones[i][j] == '_') {
+                    validacion = true;
+                    aux.add(j);
+                }
+            }
+            if (validacion) {
+                aux.add(i);
+                Collections.sort(aux);
+                nueva.add(aux);
+            }
             
         }
-        /*ArrayList<Integer> estados = new ArrayList<>();
-        ArrayList<Integer> estados2 = new ArrayList<>();
-        estados.add(estadoInicial.getIdentificador());
-        for (int i = 0; i < afnd.getTanciciones().size(); i++) {
-            if (afnd.getTanciciones().get(i).getInicio().getIdentificador() == estadoInicial.getIdentificador() && afnd.getTanciciones().get(i).getCaracter()=='_') {
-                estados.add(afnd.getTanciciones().get(i).getFin().getIdentificador());
+        
+        for (int i = 0; i < nueva.size(); i++) {
+            for (int j = 0; j < nueva.get(i).size(); j++) {
+                System.out.print(nueva.get(i).get(j));
                 
             }
+            System.out.println();
         }
         
-        for (int i = 0; i < estados.size(); i++) {
-            System.out.print(estados.get(i));
-            System.out.print(" ");
-        }
-        System.out.println();
-        estados2.add(estadoInicial.getIdentificador());
-        for (int i = 0; i < estados.size(); i++) {
-            for (int j = 0; j < afnd.getTanciciones().size(); j++) {
-                if (afnd.getTanciciones().get(j).getInicio().getIdentificador() == estados.get(i) && afnd.getTanciciones().get(j).getCaracter()=='_') {
-                    estados2.add(afnd.getTanciciones().get(j).getFin().getIdentificador());
+        for (int i = 0; i <= valorMatriz; i++) {
+            for (int j = 0; j <= valorMatriz; j++) {
+                if (posiciones[i][j] != '_' && posiciones[i][j]!='0') {
+                    
                 }
             }
+            
         }
-        
-        for (int i = 0; i < estados2.size(); i++) {
-            System.out.print(estados2.get(i));
-            System.out.print(" ");
-        }
-        System.out.println();*/
-        
+        return nueva;
         
     }
     
-    private void epsilon(Estado nuevo, AutomataNoDeterminista afnd){
-        ArrayList<Integer> estados = new ArrayList<>();
-        ArrayList<Integer> estados2 = new ArrayList<>();
-        estados.add(nuevo.getIdentificador());
-        for (int i = 0; i < afnd.getTanciciones().size(); i++) {
-            if (afnd.getTanciciones().get(i).getInicio().getIdentificador() == nuevo.getIdentificador() && afnd.getTanciciones().get(i).getCaracter()=='_') {
-                estados.add(afnd.getTanciciones().get(i).getFin().getIdentificador());
-                
-            }
-        }
+    private void tablaTransiciones(AutomataNoDeterminista afnd){
         
-        /*for (int i = 0; i < estados.size(); i++) {
-            System.out.print(estados.get(i));
-            System.out.print(" ");
-        }
-        System.out.println();*/
-        estados2.add(nuevo.getIdentificador());
-        for (int i = 0; i < estados.size(); i++) {
-            for (int j = 0; j < afnd.getTanciciones().size(); j++) {
-                if (afnd.getTanciciones().get(j).getInicio().getIdentificador() == estados.get(i) && afnd.getTanciciones().get(j).getCaracter()=='_') {
-                    estados2.add(afnd.getTanciciones().get(j).getFin().getIdentificador());
-                }
-            }
-        }
         
-        for (int i = 0; i < estados2.size(); i++) {
-            System.out.print(estados2.get(i));
-            System.out.print(" ");
-        }
-        System.out.println();
-        
-        //return estados2;
-        
-    }
-    
-    private Estado buscarEstado (int i, AutomataNoDeterminista afnd){
-        for (int j = 0; j < afnd.getTanciciones().size(); j++) {
-            if (i==afnd.getTanciciones().get(j).getInicio().getIdentificador()) {
-                return afnd.getTanciciones().get(j).getInicio();
-            }
-        }
-        return null;
     }
 
     
