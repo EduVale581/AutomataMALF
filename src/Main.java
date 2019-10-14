@@ -24,7 +24,7 @@ public class Main {
         ArrayList<String> alfabeto = new ArrayList();
         
         //Scanner leer = new Scanner(System.in);
-        String er = "a-d";
+        String er = "(c|w).a.d";
         
         for (int i = 0; i < er.length(); i++) {
             char caracter = er.charAt(i);
@@ -38,8 +38,8 @@ public class Main {
                     || ascii == 48 || ascii == 45) {                
             }else{
                 System.out.println("Ingresastes un simbolo nada que ver xd");
-                expresionValida = false;
-                break;
+                //expresionValida = false;
+               // break;
             }           
         }
        // InfiPost nueva = new InfiPost();
@@ -47,7 +47,6 @@ public class Main {
         if (expresionValida) {
             System.out.println(er);
             ParseER parse = new ParseER(er,alfabeto);
-            parse.parsear();
         }
         
     }

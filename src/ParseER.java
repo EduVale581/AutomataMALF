@@ -23,9 +23,10 @@ public final class ParseER {
         this.alfabeto = alfabeto;
         transformarER(er, automatas);
         extraerCaracteres(er,caracteres);
+        parsear(automatas,caracteres);
     } 
-    
-    public void parsear(){
+      
+    public AutomataNoDeterminista parsear(ArrayList<AutomataNoDeterminista> automatas,ArrayList<Character> caracteres){
         int i = 0;
         while (i < caracteres.size()) {  
             if(caracteres.get(i) == '|'){
@@ -36,29 +37,31 @@ public final class ParseER {
             }
             if (caracteres.get(i) == '.'){   
                AutomataNoDeterminista aux = convertidor.concatenar(automatas.get(i), automatas.get(i+1));
-               automatas.remove(i);
-               automatas.remove(i);
-               caracteres.remove(i);
-               automatas.add(i, aux);
+               modificarArray(i, aux,automatas,caracteres);
             }          
         }    
         i = 0;
         while(i < caracteres.size()){
             if (caracteres.get(i) == '|') {
                 AutomataNoDeterminista aux = convertidor.disyuncion(automatas.get(i), automatas.get(i+1));
-                automatas.remove(i);
-                automatas.remove(i);
-                caracteres.remove(i);
-                automatas.add(i, aux);
+                modificarArray(i, aux,automatas,caracteres);
             }
         }
         automatas.get(0).setAlfabeto(alfabeto);
         automatas.get(0).mostrarAFND();
-         //convertidor.conversion2(automatas.get(0));//convertirAFNDaAFD(automatas.get(0));
+        return automatas.get(0);
     }
    
     public void transformarER(String er, ArrayList<AutomataNoDeterminista> automatas){
         for (int i = 0; i < er.length(); i++) {
+            if(er.charAt(i) == '('){
+                automatas.add(encontrarParentesis(er, i));
+                er = er.substring(i+1);
+                System.out.println(er);
+            }else if(er.charAt(i) == ')'){
+                er = er.substring(i+1); 
+                System.out.println(er);
+            }
             if (i==er.length()-1 && er.charAt(i) != '*') {
                 automatas.add(convertidor.convertirCaracter(er.charAt(i)));
                 break;
@@ -83,4 +86,32 @@ public final class ParseER {
             }
         }
     }
+    
+    public void modificarArray(int i, AutomataNoDeterminista aux,ArrayList<AutomataNoDeterminista> automatas,ArrayList<Character> caracteres){
+        automatas.remove(i);
+        automatas.remove(i);
+        caracteres.remove(i);
+        automatas.add(i, aux);
+    }
+    
+    public AutomataNoDeterminista encontrarParentesis(String er, int i){
+        ArrayList<AutomataNoDeterminista> automatasParentesis = new ArrayList<>();
+        System.out.println("|    "+ er.charAt(i)+"    |");
+        System.out.println("|    "+ er.charAt(i+1)+"    |");
+        ArrayList<Character> caracteresParentesis = new ArrayList<>();
+        String erAuxiliar = "";
+        for (int j = i+1; j < er.length(); j++) {
+            if(er.charAt(j) == '('){
+                encontrarParentesis(er, j);
+            }
+            if (er.charAt(j) == ')') {
+                erAuxiliar = er.substring(i+1, j);
+                break;
+            }
+        }
+        transformarER(erAuxiliar, automatasParentesis);
+        extraerCaracteres(erAuxiliar,caracteresParentesis);
+        return parsear(automatasParentesis, caracteresParentesis);
+    }
+    
 }
