@@ -21,13 +21,14 @@ public final class ParseER {
     public ParseER (String er, ArrayList<String> alfabeto){
         this.er = er;
         this.alfabeto = alfabeto;
-        transformarER(er, automatas);
-        extraerCaracteres(er,caracteres);
+        transformarER(this.er, automatas);
+        extraerCaracteres(this.er,caracteres);
         parsear(automatas,caracteres);
+        automatas.get(0).mostrarAFND();
     } 
       
     public AutomataNoDeterminista parsear(ArrayList<AutomataNoDeterminista> automatas,ArrayList<Character> caracteres){
-        int i = 0;
+        int i = 0;      
         while (i < caracteres.size()) {  
             if(caracteres.get(i) == '|'){
                 i++;
@@ -48,7 +49,6 @@ public final class ParseER {
             }
         }
         automatas.get(0).setAlfabeto(alfabeto);
-        automatas.get(0).mostrarAFND();
         return automatas.get(0);
     }
    
@@ -56,32 +56,44 @@ public final class ParseER {
         for (int i = 0; i < er.length(); i++) {
             if(er.charAt(i) == '('){
                 automatas.add(encontrarParentesis(er, i));
-                er = er.substring(i+1);
-                System.out.println(er);
-            }else if(er.charAt(i) == ')'){
-                er = er.substring(i+1); 
-                System.out.println(er);
+                String sub1 = er.substring(0, i);
+                String sub2 = er.substring(getPosParentesis(er)+1, er.length()); 
+                er = sub1.concat(sub2);
+                this.er = er;
+                try{
+                    if (er.charAt(i) == '*'){
+                        automatas.add(convertidor.clausura(automatas.get(automatas.size()-1)));
+                        automatas.remove(automatas.size()-1);
+                        er = er.substring(i+1, er.length());
+                    } 
+                }catch(Exception e){
+                    System.out.println("ERRROR "+ i);
+                }
             }
-            if (i==er.length()-1 && er.charAt(i) != '*') {
+            if (i> er.length()-1) {
+                break;
+            }
+            if (i==er.length()-1 && er.charAt(i) != '*' && er.charAt(i) != ')') {
                 automatas.add(convertidor.convertirCaracter(er.charAt(i)));
                 break;
             }
-            else if (i==er.length()-1 && er.charAt(i)=='*') {
+            else if (i==er.length()-1 && er.charAt(i)=='*' ) {
                 break;
             }
             if (er.charAt(i) != '*' && er.charAt(i) != '|' && er.charAt(i) != '.'
-                    && er.charAt(i+1) != '*') {
+                    && er.charAt(i+1) != '*'  ) {
                 automatas.add(convertidor.convertirCaracter(er.charAt(i)));
             }
-            if (er.charAt(i+1) == '*'){
+            if (er.charAt(i+1) == '*' ){
                 automatas.add(convertidor.clausura(convertidor.convertirCaracter(er.charAt(i))));
             }
+            
         }
     }
         
     public void extraerCaracteres(String er, ArrayList<Character> caracteres){
         for (int i = 0; i < er.length(); i++) {
-            if (er.charAt(i) == '|' || er.charAt(i) == '.') {
+            if ((er.charAt(i) == '|' || er.charAt(i) == '.')) {
                 caracteres.add(er.charAt(i));
             }
         }
@@ -96,8 +108,6 @@ public final class ParseER {
     
     public AutomataNoDeterminista encontrarParentesis(String er, int i){
         ArrayList<AutomataNoDeterminista> automatasParentesis = new ArrayList<>();
-        System.out.println("|    "+ er.charAt(i)+"    |");
-        System.out.println("|    "+ er.charAt(i+1)+"    |");
         ArrayList<Character> caracteresParentesis = new ArrayList<>();
         String erAuxiliar = "";
         for (int j = i+1; j < er.length(); j++) {
@@ -109,9 +119,21 @@ public final class ParseER {
                 break;
             }
         }
+
         transformarER(erAuxiliar, automatasParentesis);
         extraerCaracteres(erAuxiliar,caracteresParentesis);
+        System.out.println(automatasParentesis.size());
         return parsear(automatasParentesis, caracteresParentesis);
+    }
+    
+    public int getPosParentesis(String er){
+        for (int i = 0; i < er.length(); i++) {
+            if (er.charAt(i) == ')') {
+                return i;
+            }
+        }
+        System.out.println("Hay un parentesis mal puesto...");
+        return 0;
     }
     
 }
