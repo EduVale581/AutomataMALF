@@ -260,6 +260,90 @@ public class Conversion {
     }
     
     /**
+     * Este metodo se encarga de buscar el final del AFD
+     * @param uno
+     * @param afnd
+     * @return 
+     */
+    private boolean buscarFinales(ArrayList<Integer> uno, AutomataNoDeterminista afnd){
+        int finall = afnd.getFinal().getIdentificador();
+        for (int i = 0; i < uno.size(); i++) {
+            if (finall == uno.get(i)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * Este metodo se encarga de buscar estados iguales en el AFND
+     * @param uno
+     * @return 
+     */
+    private boolean buscarEstadosIguales (ArrayList<Integer> uno){
+        for (int i = 0; i < estados2.size(); i++) {
+            if (igualdad(estados2.get(i).estados, uno)) {
+                return true;
+                
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * Este metodo convierte el AFND en una tabla y busca los cercanos.
+     * @param nodo
+     * @param afnd
+     * @param grafo
+     * @return 
+     */
+    private ArrayList<Integer> BFS (int nodo, AutomataNoDeterminista afnd, char [][] grafo){
+        ArrayList<Integer> recorridos = new ArrayList<>();
+        boolean[] visitados = new boolean [afnd.getEstados().size()+1];
+        visitados[nodo] = true;
+        ArrayList<Integer> cola = new ArrayList<>();
+        recorridos.add(nodo);
+        cola.add(nodo);
+        
+        while (!cola.isEmpty()){
+            int j = cola.remove(0);
+            for (int i = 0; i < grafo.length; i++) {
+                if (grafo[j][i] == '_' && !visitados[i]) {
+                    cola.add(i);
+                    recorridos.add(i);
+                    visitados[i]=true;
+                }
+                
+            }
+        }
+        return recorridos;
+    }
+    
+    /**
+     * Este metodo busca todos los epsilon alcansados por un estado.
+     * @param estado
+     * @param afnd
+     * @return 
+     */
+    private ArrayList<Integer> clausurasEpsilonDeEstado (int estado, AutomataNoDeterminista afnd){
+        int valorMatriz = afnd.getFinal().getIdentificador();
+        char [][] posiciones = new char[valorMatriz+1][valorMatriz+1];
+        for (int i = 0; i <= valorMatriz; i++) {
+            for (int j = 0; j <= valorMatriz; j++) {
+                posiciones[i][j] = '0';
+            }
+        }
+        
+        for (int i = 0; i < afnd.getTanciciones().size(); i++) {
+            posiciones[afnd.getTanciciones().get(i).getInicio().getIdentificador()][afnd.getTanciciones().get(i).getFin().getIdentificador()] = afnd.getTanciciones().get(i).getCaracter();
+        }
+
+        ArrayList<Integer> aux = BFS(estado, afnd, posiciones);
+
+        return aux;
+    }
+    
+    /**
      * Es el metodo encargado de convertir el AFND a AFD
      * @param afnd 
      * @return  
@@ -360,89 +444,7 @@ public class Conversion {
         return nuevoAFD;
     }
     
-    /**
-     * Este metodo se encarga de buscar el final del AFD
-     * @param uno
-     * @param afnd
-     * @return 
-     */
-    private boolean buscarFinales(ArrayList<Integer> uno, AutomataNoDeterminista afnd){
-        int finall = afnd.getFinal().getIdentificador();
-        for (int i = 0; i < uno.size(); i++) {
-            if (finall == uno.get(i)) {
-                return true;
-            }
-        }
-        return false;
-    }
     
-    /**
-     * Este metodo se encarga de buscar estados iguales en el AFND
-     * @param uno
-     * @return 
-     */
-    private boolean buscarEstadosIguales (ArrayList<Integer> uno){
-        for (int i = 0; i < estados2.size(); i++) {
-            if (igualdad(estados2.get(i).estados, uno)) {
-                return true;
-                
-            }
-        }
-        return false;
-    }
-    
-    /**
-     * Este metodo convierte el AFND en una tabla y busca los cercanos.
-     * @param nodo
-     * @param afnd
-     * @param grafo
-     * @return 
-     */
-    private ArrayList<Integer> BFS (int nodo, AutomataNoDeterminista afnd, char [][] grafo){
-        ArrayList<Integer> recorridos = new ArrayList<>();
-        boolean[] visitados = new boolean [afnd.getEstados().size()+1];
-        visitados[nodo] = true;
-        ArrayList<Integer> cola = new ArrayList<>();
-        recorridos.add(nodo);
-        cola.add(nodo);
-        
-        while (!cola.isEmpty()){
-            int j = cola.remove(0);
-            for (int i = 0; i < grafo.length; i++) {
-                if (grafo[j][i] == '_' && !visitados[i]) {
-                    cola.add(i);
-                    recorridos.add(i);
-                    visitados[i]=true;
-                }
-                
-            }
-        }
-        return recorridos;
-    }
-    
-    /**
-     * Este metodo busca todos los epsilon alcansados por un estado.
-     * @param estado
-     * @param afnd
-     * @return 
-     */
-    private ArrayList<Integer> clausurasEpsilonDeEstado (int estado, AutomataNoDeterminista afnd){
-        int valorMatriz = afnd.getFinal().getIdentificador();
-        char [][] posiciones = new char[valorMatriz+1][valorMatriz+1];
-        for (int i = 0; i <= valorMatriz; i++) {
-            for (int j = 0; j <= valorMatriz; j++) {
-                posiciones[i][j] = '0';
-            }
-        }
-        
-        for (int i = 0; i < afnd.getTanciciones().size(); i++) {
-            posiciones[afnd.getTanciciones().get(i).getInicio().getIdentificador()][afnd.getTanciciones().get(i).getFin().getIdentificador()] = afnd.getTanciciones().get(i).getCaracter();
-        }
-
-        ArrayList<Integer> aux = BFS(estado, afnd, posiciones);
-
-        return aux;
-    }
 
     
 }
