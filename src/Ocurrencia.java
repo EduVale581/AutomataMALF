@@ -16,19 +16,22 @@ public class Ocurrencia {
     public void leer(int linea){
         String estadoActual = afd.getEstadoInicial();
         int contadorAuxiliar = 1;
+        char cadenaActual = ' ';
         System.out.print("Linea"+linea+": ");
         for (int i = 0; i < cadena.length(); i++) {
+            cadenaActual = cadena.charAt(i);
             for (int j = 0; j < afd.tranciciones.size(); j++) {   
                 if (estadoActual == afd.tranciciones.get(j).inicial) {
-                    if (cadena.charAt(i) == afd.tranciciones.get(j).letra) {
+                    if (cadenaActual == afd.tranciciones.get(j).letra) {
+                        estadoActual = afd.tranciciones.get(j).finall; 
                         if (afd.verificarfinal(estadoActual)) {
                             System.out.print(" "+contadorAuxiliar);
+
                         }
-                        estadoActual = afd.tranciciones.get(j).finall;
-                        
+                        break;
                     }
+
                 }
-                
             }
             contadorAuxiliar++;
         }

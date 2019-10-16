@@ -1,5 +1,1 @@
-a.b|a
-aaabababbbbb-
-bbbba-
-bab-
-aaab
+(a.b*)|a

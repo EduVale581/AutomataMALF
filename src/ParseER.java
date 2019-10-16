@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Diego
  */
-public class ParseER {
+public final class ParseER {
     ArrayList<AutomataNoDeterminista> automatas = new ArrayList<>();
     ArrayList<Character> caracteres = new ArrayList<>();
     private ArrayList<String> alfabeto = new ArrayList();

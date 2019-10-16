@@ -17,9 +17,6 @@ public class AutomataFinitoDeterminista {
     ArrayList<TransicionAFD> tranciciones= new ArrayList<>();
     String estadoInicial;
     ArrayList<String> estadoAceptacion= new ArrayList<>();
-    
-    private Estado estadoFinal;
-    private Estado estadoInicio;
 
     public AutomataFinitoDeterminista() {
     }

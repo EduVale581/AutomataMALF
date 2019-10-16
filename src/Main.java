@@ -40,9 +40,10 @@ public class Main {
                     }
                     if (((ascii > 64 && ascii < 91) || (ascii > 96 && ascii < 123)) ||
                             ascii == 46 || ascii == 42 || ascii == 124 || ascii == 95
-                            || ascii == 48 || ascii == 45) {                
+                            || ascii == 48 || ascii == 45 || ascii == 40 || ascii == 41 || ascii == 48) {                
                     }else{
                         System.out.println("Ingresastes un simbolo nada que ver xd");
+                        return;
                     }           
                 }
                 if (expresionValida) {
