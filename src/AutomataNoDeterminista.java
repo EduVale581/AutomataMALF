@@ -93,18 +93,18 @@ public class AutomataNoDeterminista {
     }
 
     public void mostrarAFND(){
-        System.out.println("AFND");
+        System.out.println("AFND:");
         System.out.print("K={ ");
         for (int i = 0; i < estados.size(); i++) {
             System.out.print(estados.get(i).getIdentificador()+" ");
         }
         System.out.println("}");
         
-        System.out.println("Sigma: ");
+        System.out.print("Sigma: { ");
         for (int i = 0; i < alfabeto.size(); i++) {
             System.out.print(alfabeto.get(i)+" ");
         }
-        System.out.println("");
+        System.out.println("}");
  
         System.out.println("Delta = ");
         for (int i = 0; i < tanciciones.size(); i++) {
@@ -144,4 +144,6 @@ public class AutomataNoDeterminista {
             estados.get(i).setIdentificador(estados.get(i).getIdentificador()+1);
         }
     }
+    
+    
 }

@@ -12,22 +12,35 @@ import java.util.ArrayList;
  * @author eduardovalenzuela
  */
 public class AutomataFinitoDeterminista {
-    private ArrayList<Estado> estados = new ArrayList<>();
-    private ArrayList<String> alfabeto  = new ArrayList<>();
-    private ArrayList<Transicion> tanciciones= new ArrayList<>();
-    private ArrayList<Estado> estadosIniciales = new ArrayList<>();
-    private ArrayList<Estado> estadosFinales = new ArrayList<>();
-    //private ArrayList<Estado> estadosAceptacion = new ArrayList<>();
-    AutomataNoDeterminista afnd;
+    ArrayList<String> estados = new ArrayList<>();
+    ArrayList<String> alfabeto  = new ArrayList<>();
+    ArrayList<TransicionAFD> tranciciones= new ArrayList<>();
+    String estadoInicial;
+    ArrayList<String> estadoAceptacion= new ArrayList<>();
+    
+    private Estado estadoFinal;
+    private Estado estadoInicio;
 
-    public AutomataFinitoDeterminista(AutomataNoDeterminista afnd) {
-        this.afnd = afnd;
+    public AutomataFinitoDeterminista() {
+    }
+
+    public String getEstadoInicial() {
+        return estadoInicial;
+    }
+
+    public void setEstadoInicial(String estadoInicial) {
+        this.estadoInicial = estadoInicial;
+    }
+
+    public void setAlfabeto(ArrayList<String> alfabeto) {
+        this.alfabeto = alfabeto;
+    }
+
+    public ArrayList<String> getAlfabeto() {
+        return alfabeto;
     }
     
-    
-    
-    
-    public void addEstados(Estado nuevo){
+    public void addEstados(String nuevo){
         estados.add(nuevo);
     }
     
@@ -35,18 +48,47 @@ public class AutomataFinitoDeterminista {
         alfabeto.add(nuevo);
     }
     
-    public void addTransiciones (Transicion nuevo){
-        tanciciones.add(nuevo);
+    public void addTransiciones (TransicionAFD nuevo){
+        tranciciones.add(nuevo);
     }
     
-    public void addEstadosIniciales (Estado nuevo){
-        estadosIniciales.add(nuevo);
+    public void addEstadosAceptacion (String nuevo){
+        estadoAceptacion.add(nuevo);
+    }
+    public void mostrar(){
+        System.out.println("AFD:");
+        System.out.print("K = { ");
+        for (int i = 0; i < this.estados.size(); i++) {
+            System.out.print(this.estados.get(i) + " ");
+        }
+        System.out.println("}");
+        System.out.print("Sigma = { ");
+        for (int i = 0; i < this.alfabeto.size(); i++) {
+            System.out.print(this.alfabeto.get(i) + " ");
+        }
+        System.out.println("}");
+        System.out.println("delta:");
+        for (int i = 0; i < this.tranciciones.size(); i++) {
+            System.out.println("(" + this.tranciciones.get(i).getInicial() + ", " + this.tranciciones.get(i).getLetra() + ", " + this.tranciciones.get(i).getFinall() + ")");
+            
+        }
+        System.out.println("s = " + this.getEstadoInicial());
+        System.out.print("F = { ");
+        for (int i = 0; i < this.estadoAceptacion.size(); i++) {
+            System.out.print(this.estadoAceptacion.get(i) + " ");
+        }
+        System.out.println("}");
     }
     
-    public void addEstadosFinales (Estado nuevo){
-        estadosFinales.add(nuevo);
-    }
     
+    public boolean verificarfinal(String estado){
+        for (int i = 0; i < estadoAceptacion.size(); i++) {
+            if (estado == null ? estadoAceptacion.get(i) == null : estado.equals(estadoAceptacion.get(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
     
     
 }

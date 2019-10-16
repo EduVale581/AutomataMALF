@@ -3,13 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/eduardovalenzuela/Desktop/Tarea1MALF/src/Main.java</file>
-            <file>file:/Users/eduardovalenzuela/Desktop/Tarea1MALF/src/Tipo_Pila.java</file>
-            <file>file:/Users/eduardovalenzuela/Desktop/Tarea1MALF/src/AutomataNoDeterminista.java</file>
-            <file>file:/Users/eduardovalenzuela/Desktop/Tarea1MALF/src/Transicion.java</file>
-            <file>file:/Users/eduardovalenzuela/Desktop/Tarea1MALF/src/Conversion.java</file>
-            <file>file:/Users/eduardovalenzuela/Desktop/Tarea1MALF/src/InfiPost.java</file>
-            <file>file:/Users/eduardovalenzuela/Desktop/Tarea1MALF/src/ParseER.java</file>
+            <file>file:/C:/Users/Diego/Desktop/Tarea/src/AutomataNoDeterminista.java</file>
+            <file>file:/C:/Users/Diego/Desktop/Tarea/src/TransicionesAFD.java</file>
+            <file>file:/C:/Users/Diego/Desktop/Tarea/src/Main.java</file>
+            <file>file:/C:/Users/Diego/Desktop/Tarea/src/TransicionAFD.java</file>
+            <file>file:/C:/Users/Diego/Desktop/Tarea/src/Transicion.java</file>
+            <file>file:/C:/Users/Diego/Desktop/Tarea/src/AutomataFinitoDeterminista.java</file>
+            <file>file:/C:/Users/Diego/Desktop/Tarea/src/Conversion.java</file>
+            <file>file:/C:/Users/Diego/Desktop/Tarea/src/Estado.java</file>
+            <file>file:/C:/Users/Diego/Desktop/Tarea/src/Ocurrencia.java</file>
+            <file>file:/C:/Users/Diego/Desktop/Tarea/src/EstadoAFD.java</file>
+            <file>file:/C:/Users/Diego/Desktop/Tarea/src/ParseER.java</file>
         </group>
     </open-files>
 </project-private>

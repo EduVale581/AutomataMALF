@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Diego
  */
-public final class ParseER {
+public class ParseER {
     ArrayList<AutomataNoDeterminista> automatas = new ArrayList<>();
     ArrayList<Character> caracteres = new ArrayList<>();
     private ArrayList<String> alfabeto = new ArrayList();
@@ -24,7 +24,6 @@ public final class ParseER {
         transformarER(this.er, automatas);
         extraerCaracteres(this.er,caracteres);
         parsear(automatas,caracteres);
-        automatas.get(0).mostrarAFND();
     } 
       
     public AutomataNoDeterminista parsear(ArrayList<AutomataNoDeterminista> automatas,ArrayList<Character> caracteres){
@@ -49,6 +48,7 @@ public final class ParseER {
             }
         }
         automatas.get(0).setAlfabeto(alfabeto);
+        
         return automatas.get(0);
     }
    
@@ -135,5 +135,5 @@ public final class ParseER {
         System.out.println("Hay un parentesis mal puesto...");
         return 0;
     }
-    
+
 }
