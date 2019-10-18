@@ -67,7 +67,7 @@ public final class ParseER {
                         er = er.substring(i+1, er.length());
                     } 
                 }catch(Exception e){
-                    System.out.println("ERRROR "+ i);
+                    System.out.println("ERROR "+ i);
                 }
             }
             if (i> er.length()-1) {
@@ -115,12 +115,13 @@ public final class ParseER {
     }
     
     public AutomataNoDeterminista encontrarParentesis(String er, int i){
+        System.out.println("La ER es: "+er);
         ArrayList<AutomataNoDeterminista> automatasParentesis = new ArrayList<>();
         ArrayList<Character> caracteresParentesis = new ArrayList<>();
         String erAuxiliar = "";
         for (int j = i+1; j < er.length(); j++) {
             if(er.charAt(j) == '('){
-                encontrarParentesis(er, j);
+                encontrarParentesis(er.substring(j), j);
             }
             if (er.charAt(j) == ')') {
                 erAuxiliar = er.substring(i+1, j);

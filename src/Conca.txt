@@ -1,3 +1,2 @@
-((a))
-picopicopi-
-copico
+a.b
+ab

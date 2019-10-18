@@ -20,37 +20,6 @@ import java.util.Set;
  */
 public class Conversion {
 
-    public Conversion() {
-    }
-    /**
-     * La primera vez que se ejecuta convierte la letra a un automata para 
-     * evitar problemas con ID
-     * @param valor
-     * @param a
-     * @return 
-     */
-    public AutomataNoDeterminista convertirCaracterPrimera (char valor, AutomataNoDeterminista a){
-        
-        Estado nuevoEstadoInicio;
-        
-        nuevoEstadoInicio = new Estado(0);
-
-        
-        a.addEstados(nuevoEstadoInicio);
-        
-        Estado nuevoEstadoFin = new Estado(a.getEstados().size());
-        a.addEstados(nuevoEstadoFin);
-        
-        nuevoEstadoFin.setVerificacion(true);
-        
-        Transicion nueva = new Transicion(nuevoEstadoInicio, nuevoEstadoFin, valor);
-        a.addTanciciones(nueva);
-        a.actualizarEstadoFinales();
-        a.actualizarEstados();
-
-        return a;
-        
-    }
     
     public AutomataNoDeterminista convertirVacio(){
         AutomataNoDeterminista nuevo = new AutomataNoDeterminista();
@@ -79,7 +48,6 @@ public class Conversion {
         
         Estado nuevoEstadoInicio;
         nuevoEstadoInicio = new Estado(0);
-      //  a.addEstados(nuevoEstadoInicio);
         nuevo.addEstados(nuevoEstadoInicio);
         nuevo.setInicio(nuevoEstadoInicio);
         
@@ -87,10 +55,8 @@ public class Conversion {
         nuevo.addEstados(nuevoEstadoFin);
         nuevoEstadoFin.setVerificacion(true);
         nuevo.setTermino(nuevoEstadoFin);
-       // a.addEstados(nuevoEstadoFin);
         
         Transicion nueva = new Transicion(nuevoEstadoInicio, nuevoEstadoFin, valor);
-       // a.addTanciciones(nueva);
         nuevo.addTanciciones(nueva);
         nuevo.actualizarEstadoFinales();
         nuevo.actualizarEstados();

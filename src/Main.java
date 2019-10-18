@@ -64,9 +64,7 @@ public class Main {
                 contador++;
             }
             else{
-                Ocurrencia ocurrencia = new Ocurrencia();
-                ocurrencia.setAfd(afd);
-                ocurrencia.setCadena(cadena);
+                Ocurrencia ocurrencia = new Ocurrencia(cadena, afd, alfabeto);
                 estadoActual = ocurrencia.leer(linea,estadoActual);
                 linea++;
             }  
