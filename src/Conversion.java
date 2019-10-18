@@ -51,6 +51,23 @@ public class Conversion {
         return a;
         
     }
+    
+    public AutomataNoDeterminista convertirVacio(){
+        AutomataNoDeterminista nuevo = new AutomataNoDeterminista();
+        
+        Estado nuevoEstadoInicio;
+        nuevoEstadoInicio = new Estado(0);
+        nuevo.addEstados(nuevoEstadoInicio);
+        nuevo.setInicio(nuevoEstadoInicio);
+        
+        Estado nuevoEstadoFin = new Estado(1);
+        nuevo.addEstados(nuevoEstadoFin);
+        nuevoEstadoFin.setVerificacion(true);
+        nuevo.setTermino(nuevoEstadoFin);
+        
+        nuevo.actualizarEstadoFinales();
+        return nuevo;
+    }
     /**
      * Se crea un automata auxiliar para luego unirlo al principal
      * @param valor

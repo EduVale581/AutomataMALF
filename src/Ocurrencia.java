@@ -13,8 +13,8 @@ public class Ocurrencia {
     private String cadena;
     private AutomataFinitoDeterminista afd;
     
-    public void leer(int linea){
-        String estadoActual = afd.getEstadoInicial();
+    public String leer(int linea,String estadoActual){
+        
         int contadorAuxiliar = 1;
         char cadenaActual = ' ';
         System.out.print("Linea"+linea+": ");
@@ -36,6 +36,7 @@ public class Ocurrencia {
             contadorAuxiliar++;
         }
         System.out.println("");
+        return estadoActual;
     }
 
     public String getCadena() {

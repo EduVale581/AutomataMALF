@@ -23,7 +23,7 @@ public class Main {
         ArrayList<String> alfabeto = new ArrayList();
         AutomataNoDeterminista afnd;
         AutomataFinitoDeterminista afd = null;
-        
+        String estadoActual = "";
         FileReader archivo = new FileReader(archivoFile);
         BufferedReader archivoLeido = new BufferedReader(archivo);
         String cadena, er;
@@ -57,6 +57,7 @@ public class Main {
                     afnd.mostrarAFND();
                     System.out.println();
                     afd.mostrar();
+                    estadoActual = afd.getEstadoInicial();
                     System.out.println("");
                     System.out.println("Ocurrencias: ");
                 }
@@ -66,7 +67,7 @@ public class Main {
                 Ocurrencia ocurrencia = new Ocurrencia();
                 ocurrencia.setAfd(afd);
                 ocurrencia.setCadena(cadena);
-                ocurrencia.leer(linea);
+                estadoActual = ocurrencia.leer(linea,estadoActual);
                 linea++;
             }  
         }

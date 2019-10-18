@@ -74,7 +74,11 @@ public final class ParseER {
                 break;
             }
             if (i==er.length()-1 && er.charAt(i) != '*' && er.charAt(i) != ')') {
-                automatas.add(convertidor.convertirCaracter(er.charAt(i)));
+                if (er.charAt(i) == '0') {
+                    automatas.add(convertidor.convertirVacio());
+                }else{
+                    automatas.add(convertidor.convertirCaracter(er.charAt(i)));
+                }
                 break;
             }
             else if (i==er.length()-1 && er.charAt(i)=='*' ) {
@@ -82,7 +86,11 @@ public final class ParseER {
             }
             if (er.charAt(i) != '*' && er.charAt(i) != '|' && er.charAt(i) != '.'
                     && er.charAt(i+1) != '*'  ) {
-                automatas.add(convertidor.convertirCaracter(er.charAt(i)));
+                if (er.charAt(i) == '0') {
+                    automatas.add(convertidor.convertirVacio());
+                }else{
+                    automatas.add(convertidor.convertirCaracter(er.charAt(i)));
+                }
             }
             if (er.charAt(i+1) == '*' ){
                 automatas.add(convertidor.clausura(convertidor.convertirCaracter(er.charAt(i))));
